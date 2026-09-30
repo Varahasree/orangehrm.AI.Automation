@@ -1,11 +1,8 @@
-from selenium import webdriver
+from config.config import BASE_URL
 
 
-def test_orangehrm_application_launches():
-    driver = webdriver.Chrome()
+def test_orangehrm_application_launches(driver):
 
-    try:
-        driver.get("https://opensource-demo.orangehrmlive.com/")
-        assert "OrangeHRM" in driver.title
-    finally:
-        driver.quit()
+    driver.get(BASE_URL)
+
+    assert "OrangeHRM" in driver.title
