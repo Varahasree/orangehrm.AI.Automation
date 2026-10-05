@@ -1,0 +1,5 @@
+VALID_USERNAME = "Admin"
+VALID_PASSWORD = "admin123"
+
+INVALID_USERNAME = "InvalidUser"
+INVALID_PASSWORD = "InvalidPassword"

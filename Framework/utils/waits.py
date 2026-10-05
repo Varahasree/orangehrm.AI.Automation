@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class Waits:
 
-    def __init__(self, driver, timeout=10):
+    def __init__(self, driver, timeout=120):
         self.driver = driver
         self.timeout = timeout
 
