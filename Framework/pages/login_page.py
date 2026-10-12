@@ -7,6 +7,10 @@ class LoginPage(BasePage):
     USERNAME = (By.NAME, "username")
     PASSWORD = (By.NAME, "password")
     LOGIN_BUTTON = (By.XPATH, "//button[@type='submit']")
+    INVALID_CREDENTIALS_MESSAGE = (
+        By.XPATH,
+        "//p[contains(@class,'oxd-alert-content-text') and text()='Invalid credentials']"
+    )
 
     def wait_for_login_page(self):
         self.find_element(self.USERNAME)
@@ -24,3 +28,8 @@ class LoginPage(BasePage):
         self.enter_username(username)
         self.enter_password(password)
         self.click_login()
+
+    def is_invalid_credentials_message_displayed(self):
+        return self.find_element(
+            self.INVALID_CREDENTIALS_MESSAGE
+        ).is_displayed()
