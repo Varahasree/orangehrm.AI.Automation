@@ -18,6 +18,10 @@ class DashboardPage(BasePage):
         By.XPATH,
         "//span[text()='PIM']"
     )
+    LEAVE_MENU = (
+        By.XPATH,
+        "//span[normalize-space()='Leave']"
+    )
 
     def is_dashboard_displayed(self):
         return self.find_element(
@@ -34,3 +38,6 @@ class DashboardPage(BasePage):
 
     def click_user_profile(self):
         self.click(self.USER_PROFILE)
+
+    def click_leave(self):
+        self.click(self.LEAVE_MENU)
