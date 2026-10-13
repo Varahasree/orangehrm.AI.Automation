@@ -2,6 +2,7 @@ import pytest
 from pathlib import Path
 from datetime import datetime
 from Framework.driver.driver_factory import DriverFactory
+from Framework.api.api_client import APIClient
 
 
 def pytest_addoption(parser):
@@ -57,4 +58,10 @@ def pytest_runtest_makereport(item, call):
             print(
                 f"\nScreenshot saved: "
                 f"{screenshot_path}"
-            )
+    )
+
+@pytest.fixture
+def api_client():
+    client = APIClient()
+    yield client
+    client.close()
