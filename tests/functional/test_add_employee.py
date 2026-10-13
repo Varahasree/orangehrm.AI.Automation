@@ -19,6 +19,7 @@ from testdata.employee_data import (
 
 
 @pytest.mark.functional
+@pytest.mark.regression
 def test_add_employee(driver):
 
     driver.get(BASE_URL)

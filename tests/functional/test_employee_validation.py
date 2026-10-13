@@ -14,6 +14,7 @@ from testdata.login_data import (
 
 
 @pytest.mark.functional
+@pytest.mark.regression
 def test_add_employee_required_fields(driver):
 
     driver.get(BASE_URL)

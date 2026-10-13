@@ -10,6 +10,7 @@ from testdata.login_data import (
 
 
 @pytest.mark.smoke
+@pytest.mark.regression
 def test_dashboard_loads_after_login(driver):
 
     driver.get(BASE_URL)

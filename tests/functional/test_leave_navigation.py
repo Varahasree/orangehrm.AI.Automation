@@ -12,6 +12,7 @@ from testdata.login_data import (
 
 
 @pytest.mark.functional
+@pytest.mark.regression
 def test_open_leave_module(driver):
     driver.get(BASE_URL)
 

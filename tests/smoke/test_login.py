@@ -11,6 +11,7 @@ from testdata.login_data import (
 
 
 @pytest.mark.smoke
+@pytest.mark.regression
 def test_valid_login(driver):
 
     driver.get(BASE_URL)
@@ -37,6 +38,7 @@ def test_valid_login(driver):
     ]
 )
 @pytest.mark.functional
+@pytest.mark.regression
 def test_invalid_login(driver, username, password):
 
     driver.get(BASE_URL)

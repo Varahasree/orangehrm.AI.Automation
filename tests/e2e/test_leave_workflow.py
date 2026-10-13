@@ -12,6 +12,7 @@ from testdata.login_data import (
 
 
 @pytest.mark.e2e
+@pytest.mark.regression
 def test_user_can_open_leave_list(driver):
     driver.get(BASE_URL)
 
