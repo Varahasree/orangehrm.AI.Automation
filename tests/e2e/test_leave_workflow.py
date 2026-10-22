@@ -37,3 +37,5 @@ def test_user_can_open_leave_list(driver):
 
     # Step 4: Verify the Leave List page
     assert leave_page.is_leave_list_displayed()
+
+    

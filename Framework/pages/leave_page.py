@@ -57,3 +57,4 @@ class LeavePage(BasePage):
         return self.find_element(
             self.APPLY_HEADER
         ).is_displayed()
+
