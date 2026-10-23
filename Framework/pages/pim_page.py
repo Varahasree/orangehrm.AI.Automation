@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 
 from Framework.pages.base_page import BasePage
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class PimPage(BasePage):
@@ -83,7 +84,16 @@ class PimPage(BasePage):
         )
 
     def save_employee(self):
-        self.click(self.SAVE_BUTTON)
+        # Wait for the form's loading overlay to disappear
+        self.wait.until(
+            EC.invisibility_of_element_located(
+                (By.CSS_SELECTOR, ".oxd-form-loader")
+            )
+        )
+        # Wait until Save is clickable
+        self.wait.until(
+            EC.element_to_be_clickable(self.SAVE_BUTTON)
+        ).click()
 
     def search_employee(self, employee_name):
         self.enter_text(

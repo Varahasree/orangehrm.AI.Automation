@@ -22,6 +22,11 @@ def test_open_leave_module(driver):
         VALID_PASSWORD,
     )
 
+    print("Current URL:", driver.current_url)
+    print("Page title:", driver.title)
+    print("Dashboard URL reached:",
+          "/dashboard/index" in driver.current_url)
+
     dashboard_page = DashboardPage(driver)
     assert dashboard_page.is_dashboard_displayed()
 
