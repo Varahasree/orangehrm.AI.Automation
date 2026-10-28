@@ -33,3 +33,14 @@ class LoginPage(BasePage):
         return self.find_element(
             self.INVALID_CREDENTIALS_MESSAGE
         ).is_displayed()
+
+    def enter_username_with_healing(self, username):
+        element = self.find_element_with_fallback(
+            self.USERNAME,
+            fallback_locators=[
+                (By.CSS_SELECTOR, "input[name='username']"),
+            ],
+        )
+
+        element.clear()
+        element.send_keys(username)

@@ -49,7 +49,7 @@ def test_invalid_login(driver, username, password):
 
     assert login_page.is_invalid_credentials_message_displayed()
 
-    def login(self, username, password):
+def login(self, username, password):
         logger = get_logger(__name__)
 
         logger.info("Entering username")

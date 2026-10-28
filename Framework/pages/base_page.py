@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from Framework.ai.locator_healer import LocatorHealer
 
 
 class BasePage:
@@ -33,3 +34,22 @@ class BasePage:
         self.driver.save_screenshot(
             f"reports/screenshots/{file_name}.png"
         )
+
+    # Add inside your existing BasePage class
+
+    def find_element_with_fallback(
+            self,
+            primary_locator,
+            fallback_locators=None,
+    ):
+        healer = LocatorHealer(self.driver)
+
+        element = healer.find_element(
+            primary_locator,
+            fallback_locators or [],
+        )
+
+        # Store the recovery history for debugging.
+        self.last_locator_recovery = healer.recovery_log
+
+        return element
