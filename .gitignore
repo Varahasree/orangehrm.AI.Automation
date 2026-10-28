@@ -9,3 +9,16 @@ reports/
 *.log
 screenshots/
 
+# Generated test reports
+reports/allure-results/
+reports/allure-report/
+reports/junit.xml
+reports/screenshots/
+reports/ai_analysis/
+
+# Python and pytest
+__pycache__/
+.pytest_cache/
+*.py[cod]
+
+

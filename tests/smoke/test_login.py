@@ -1,4 +1,5 @@
 import pytest
+import allure
 
 from config.config import BASE_URL
 from Framework.pages.login_page import LoginPage
@@ -10,8 +11,12 @@ from testdata.login_data import (
 )
 
 
+
 @pytest.mark.smoke
 @pytest.mark.regression
+@allure.feature("Authentication")
+@allure.story("Valid login")
+@allure.title("Verify that an authorized user can log in")
 def test_valid_login(driver):
 
     driver.get(BASE_URL)

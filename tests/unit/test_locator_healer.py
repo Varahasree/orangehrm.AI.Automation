@@ -6,7 +6,7 @@ from selenium.common.exceptions import TimeoutException
 
 from Framework.ai.locator_healer import LocatorHealer
 
-
+@pytest.mark.unit
 def test_primary_locator_succeeds_without_fallback():
     driver = Mock()
     expected_element = Mock()
