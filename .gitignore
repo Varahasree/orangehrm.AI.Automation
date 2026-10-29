@@ -1,24 +1,29 @@
-.venv/
+
+# Python
 __pycache__/
+*.py[cod]
 .pytest_cache/
+.venv/
+venv/
+
+# IDEs
 .idea/
 .vscode/
-.env.example
-allure-results/
-reports/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+
+# Logs
 *.log
+
+# Test artifacts
+allure-results/
+allure-report/
+reports/
 screenshots/
 
-# Generated test reports
-reports/allure-results/
-reports/allure-report/
-reports/junit.xml
-reports/screenshots/
-reports/ai_analysis/
-
-# Python and pytest
-__pycache__/
-.pytest_cache/
-*.py[cod]
-
-
+# OS files
+.DS_Store
+Thumbs.db
