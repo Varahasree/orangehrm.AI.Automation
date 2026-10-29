@@ -23,11 +23,11 @@ The API test layer uses a separately configured mock API where appropriate. It i
 
 ## Architecture
 
-- `framework/driver/` — WebDriver creation and browser configuration
-- `framework/pages/` — Page Object Model classes
-- `framework/api/` — Reusable API client
-- `framework/ai/` — Failure analysis, approved locator fallbacks, and flaky-test analysis
-- `framework/utils/` — Shared waits, logging, and screenshot utilities
+- `Framework/driver/` — WebDriver creation and browser configuration
+- `Framework/pages/` — Page Object Model classes
+- `Framework/api/` — Reusable API client
+- `Framework/ai/` — Failure analysis, approved locator fallbacks, and flaky-test analysis
+- `Framework/utils/` — Shared waits, logging, and screenshot utilities
 - `tests/` — Organized test suites
 - `test_data/` — Test data generation and fixtures
 - `config/` — Environment-based configuration

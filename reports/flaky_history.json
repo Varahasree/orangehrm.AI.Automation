@@ -1,0 +1,8 @@
+
+[
+  {"test": "test_login", "outcome": "passed"},
+  {"test": "test_login", "outcome": "failed"},
+  {"test": "test_login", "outcome": "passed"},
+  {"test": "test_dashboard", "outcome": "passed"},
+  {"test": "test_dashboard", "outcome": "passed"}
+]

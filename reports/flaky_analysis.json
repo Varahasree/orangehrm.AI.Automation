@@ -1,0 +1,16 @@
+{
+  "test_login": {
+    "runs": 3,
+    "passed": 2,
+    "failed": 1,
+    "skipped": 0,
+    "potentially_flaky": true
+  },
+  "test_dashboard": {
+    "runs": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0,
+    "potentially_flaky": false
+  }
+}
