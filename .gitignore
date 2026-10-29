@@ -10,20 +10,17 @@ venv/
 .idea/
 .vscode/
 
-# Environment variables and secrets
+# Secrets
 .env
 .env.*
 !.env.example
 
-# Logs
-*.log
-
-# Test artifacts
+# Generated test reports
 allure-results/
 allure-report/
-reports/
-screenshots/
+reports/allure-results/
+reports/allure-report/
+reports/junit.xml
+reports/screenshots/
+reports/ai_analysis/
 
-# OS files
-.DS_Store
-Thumbs.db
