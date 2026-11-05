@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 
 from Framework.pages.base_page import BasePage
+from selenium.webdriver.common.keys import Keys
 
 
 class AddEmployeePage(BasePage):
@@ -74,12 +75,22 @@ class AddEmployeePage(BasePage):
         )
 
     def enter_employee_id(self, employee_id):
+        employee_id_element = self.find_element(self.EMPLOYEE_ID)
 
-        self.enter_text(
-            self.EMPLOYEE_ID,
-            employee_id
+        # Clear the default Employee ID
+        employee_id_element.click()
+        employee_id_element.send_keys(
+            Keys.CONTROL, "a"
         )
+        employee_id_element.send_keys(Keys.BACKSPACE)
 
+        # Enter the generated Employee ID
+        employee_id_element.send_keys(str(employee_id))
+
+        print(
+            "Employee ID after entering:",
+            employee_id_element.get_attribute("value")
+        )
     def click_save(self):
 
         self.click(self.SAVE_BUTTON)
@@ -88,6 +99,7 @@ class AddEmployeePage(BasePage):
         self,
         first_name,
         last_name,
+        employee_id,
         middle_name=None
     ):
 
@@ -97,6 +109,17 @@ class AddEmployeePage(BasePage):
             self.enter_middle_name(middle_name)
 
         self.enter_last_name(last_name)
+
+        self.enter_employee_id(employee_id)
+
+        actual_id = self.find_element(
+            self.EMPLOYEE_ID
+        ).get_attribute("value")
+
+        assert actual_id == str(employee_id), (
+            f"Employee ID mismatch. Expected: {employee_id}, "
+            f"Actual: {actual_id}"
+        )
 
         self.click_save()
 

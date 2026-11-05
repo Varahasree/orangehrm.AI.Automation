@@ -8,11 +8,14 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from dotenv import load_dotenv
 
-
+# Load local environment variables
+load_dotenv()
 @pytest.mark.integration
 def test_employee_data_matches_between_ui_and_api():
     # Read configuration
+    base_url = os.getenv("ORANGEHRM_URL")
     api_base_url = os.getenv("ORANGEHRM_API_BASE_URL")
     employee_endpoint = os.getenv("ORANGEHRM_EMPLOYEE_ENDPOINT")
     api_token = os.getenv("ORANGEHRM_API_TOKEN")
@@ -70,7 +73,7 @@ def test_employee_data_matches_between_ui_and_api():
 
     try:
         login_url = (
-            f"{api_base_url.rstrip('/')}/auth/login"
+            f"{base_url}/web/index.php/auth/login"
         )
         driver.get(login_url)
 
@@ -96,9 +99,11 @@ def test_employee_data_matches_between_ui_and_api():
 
         # 3. Open the selected employee's personal details
         employee_ui_url = (
-            f"{api_base_url.rstrip('/')}/"
-            f"pim/viewPersonalDetails/empNumber/"
-            f"{employee_id}"
+            f"{base_url}/web/index.php/pim/viewPersonalDetails/"
+            f"empNumber/{employee_id}"
+            # f"{api_base_url.rstrip('/')}/"
+            # f"pim/viewPersonalDetails/empNumber/"
+            # f"{employee_id}"
         )
 
         driver.get(employee_ui_url)
@@ -146,9 +151,12 @@ def test_employee_data_matches_between_ui_and_api():
         )
 
         # 4. Read the values actually displayed in the UI
-        ui_first_name = first_name_field.get_attribute("value")
-        ui_last_name = last_name_field.get_attribute("value")
-        ui_employee_id = employee_id_field.get_attribute("value")
+        ui_first_name = first_name_field.get_attribute("value").strip()
+        ui_last_name = last_name_field.get_attribute("value").strip()
+        ui_employee_id = employee_id_field.get_attribute("value").strip()
+        # ui_first_name = first_name_field.get_attribute("value")
+        # ui_last_name = last_name_field.get_attribute("value")
+        # ui_employee_id = employee_id_field.get_attribute("value")
 
         # 5. Compare UI values with API values
         assert ui_first_name == api_employee["firstName"], (

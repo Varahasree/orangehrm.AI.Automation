@@ -57,7 +57,8 @@ def test_add_employee(driver):
     # Create employee
     add_employee_page.add_employee(
         first_name=employee["first_name"],
-        last_name=employee["last_name"]
+        last_name=employee["last_name"],
+        employee_id=str(employee["employee_id"])
     )
 
     # Verify employee details page
@@ -76,4 +77,8 @@ def test_add_employee(driver):
     assert (
         employee_details_page.get_last_name()
         == employee["last_name"]
+    )
+    assert (
+            employee_details_page.get_employee_id()
+            == employee["employee_id"]
     )

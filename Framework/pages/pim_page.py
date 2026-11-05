@@ -7,10 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 class PimPage(BasePage):
 
-    PIM_HEADER = (
-        By.XPATH,
-        "//h6[text()='PIM']"
-    )
+    PIM_HEADER = (By.XPATH, "//h6[normalize-space()='PIM']")
 
     ADD_BUTTON = (
         By.XPATH,

@@ -27,6 +27,11 @@ class EmployeeDetailsPage(BasePage):
         "middleName"
     )
 
+    EMPLOYEE_ID = (
+        By.XPATH,
+        "//label[normalize-space()='Employee Id']/following::input[1]"
+    )
+
     def is_personal_details_displayed(self):
         WebDriverWait(self.driver, 10).until(
             lambda driver: driver.find_element(
@@ -60,8 +65,17 @@ class EmployeeDetailsPage(BasePage):
         ).get_attribute("value")
 
     def get_middle_name(self):
+        return self.find_element(
+            self.MIDDLE_NAME
+        ).get_attribute("value")
+
+    def get_employee_id(self):
         WebDriverWait(self.driver, 10).until(
             lambda driver: driver.find_element(
-                *self.MIDDLE_NAME
+                *self.EMPLOYEE_ID
             ).get_attribute("value") != ""
         )
+
+        return self.find_element(
+            self.EMPLOYEE_ID
+        ).get_attribute("value")

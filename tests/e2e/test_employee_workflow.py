@@ -44,6 +44,7 @@ def test_user_can_add_employee_and_verify_details(driver):
     add_employee_page.add_employee(
         first_name=employee["first_name"],
         last_name=employee["last_name"],
+        employee_id=employee["employee_id"],
     )
 
     # Step 5: Verify saved details
@@ -51,3 +52,4 @@ def test_user_can_add_employee_and_verify_details(driver):
     assert details_page.is_personal_details_displayed()
     assert details_page.get_first_name() == employee["first_name"]
     assert details_page.get_last_name() == employee["last_name"]
+    assert details_page.get_employee_id() == employee["employee_id"]
