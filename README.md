@@ -21,6 +21,13 @@ The API test layer uses a separately configured mock API where appropriate. It i
 - GitHub Actions
 - JSON-based failure and flaky-test analysis
 
+The GitHub Actions workflow runs the configured PyTest suite and
+uploads JUnit XML, Allure results.
+
+- **Live CI status:** [QA Automation CI](https://github.com/Varahasree/orangehrm.AI.Automation/actions/workflows/tests.yml)
+- **Test report:** [View the sample JUnit report](docs/test-evidence/junit.xml)
+- **Execution summary:** [View test execution details](docs/test-evidence/test-run-summary.md)
+
 ## Architecture
 
 - `Framework/driver/` — WebDriver creation and browser configuration
