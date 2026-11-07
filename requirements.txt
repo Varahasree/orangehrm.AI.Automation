@@ -2,7 +2,7 @@
 pytest
 selenium
 requests
-Faker
+faker
 allure-pytest
 pytest-xdist
 python-dotenv

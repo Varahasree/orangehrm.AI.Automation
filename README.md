@@ -36,7 +36,7 @@ uploads JUnit XML, Allure results.
 - `Framework/ai/` — Failure analysis, approved locator fallbacks, and flaky-test analysis
 - `Framework/utils/` — Shared waits, logging, and screenshot utilities
 - `tests/` — Organized test suites
-- `test_data/` — Test data generation and fixtures
+- `testdata/` — Test data generation and fixtures
 - `config/` — Environment-based configuration
 - `.github/workflows/` — CI workflow definitions
 
