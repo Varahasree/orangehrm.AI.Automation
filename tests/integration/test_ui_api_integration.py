@@ -29,7 +29,9 @@ def test_employee_data_matches_between_ui_and_api(
     base_url = os.getenv("ORANGEHRM_URL")
     api_base_url = os.getenv("ORANGEHRM_API_BASE_URL")
     employee_endpoint = os.getenv("ORANGEHRM_EMPLOYEE_ENDPOINT")
-    api_token = os.getenv("ORANGEHRM_API_TOKEN")
+    api_token = os.getenv(
+        "ORANGEHRM_API_TOKEN", ""
+    ).strip()
 
     if not all([
         base_url,
