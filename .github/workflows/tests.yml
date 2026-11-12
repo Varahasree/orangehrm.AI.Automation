@@ -19,6 +19,13 @@ jobs:
       HEADLESS: "true"
       PYTHONUNBUFFERED: "1"
 
+      ORANGEHRM_URL: ${{ secrets.ORANGEHRM_URL }}
+      ORANGEHRM_API_BASE_URL: ${{ secrets.ORANGEHRM_API_BASE_URL }}
+      ORANGEHRM_API_TOKEN: ${{ secrets.ORANGEHRM_API_TOKEN }}
+      ORANGEHRM_EMPLOYEE_ENDPOINT: ${{ vars.ORANGEHRM_EMPLOYEE_ENDPOINT }}
+      ORANGEHRM_USERNAME: ${{ secrets.ORANGEHRM_USERNAME }}
+      ORANGEHRM_PASSWORD: ${{ secrets.ORANGEHRM_PASSWORD }}
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
@@ -38,10 +45,11 @@ jobs:
         run: |
           mkdir -p reports/screenshots
           mkdir -p reports/allure-results
+          mkdir -p reports/ai_analysis
 
       - name: Run automated tests
         run: |
-          pytest \
+          pytest -v -s \
             --alluredir=reports/allure-results \
             --junitxml=reports/junit.xml
 
@@ -56,4 +64,3 @@ jobs:
             reports/screenshots/
             reports/ai_analysis/
           if-no-files-found: ignore
-
