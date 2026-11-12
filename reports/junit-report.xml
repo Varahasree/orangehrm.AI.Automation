@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="35" time="492.725" timestamp="2026-11-07T23:09:08.822411+01:00" hostname="DESKTOP-GUB55U1"><testcase classname="tests.api.test_health_api" name="test_api_returns_successful_response" time="0.761" /><testcase classname="tests.api.test_users_api" name="test_get_existing_user" time="0.799" /><testcase classname="tests.api.test_users_api" name="test_get_non_existing_user" time="0.753" /><testcase classname="tests.e2e.test_employee_workflow" name="test_user_can_add_employee_and_verify_details" time="23.210" /><testcase classname="tests.e2e.test_leave_workflow" name="test_user_can_open_leave_list" time="39.875" /><testcase classname="tests.functional.test_add_employee" name="test_add_employee" time="58.358" /><testcase classname="tests.functional.test_employee" name="test_add_employee" time="33.577" /><testcase classname="tests.functional.test_employee_search" name="test_search_non_existing_employee" time="89.927" /><testcase classname="tests.functional.test_employee_validation" name="test_add_employee_required_fields" time="49.622" /><testcase classname="tests.functional.test_leave_apply" name="test_open_leave_apply_form" time="21.599" /><testcase classname="tests.functional.test_leave_navigation" name="test_open_leave_module" time="9.977" /><testcase classname="tests.functional.test_locator_healing" name="test_username_field_can_be_found_with_fallback" time="16.765" /><testcase classname="tests.functional.test_pim_navigation" name="test_open_pim" time="9.628" /><testcase classname="tests.integration.test_ui_api_integration" name="test_employee_data_matches_between_ui_and_api" time="1.156"><failure message="AssertionError: API request failed: 422 - {&quot;error&quot;:{&quot;status&quot;:&quot;422&quot;,&quot;message&quot;:&quot;Invalid Parameter&quot;,&quot;data&quot;:{&quot;invalidParamKeys&quot;:[&quot;empNumber&quot;]}}}&#10;assert 422 == 200&#10; +  where 422 = &lt;Response [422]&gt;.status_code">@pytest.mark.integration
+    def test_employee_data_matches_between_ui_and_api():
+        # Read configuration
+        base_url = os.getenv("ORANGEHRM_URL")
+        api_base_url = os.getenv("ORANGEHRM_API_BASE_URL")
+        employee_endpoint = os.getenv("ORANGEHRM_EMPLOYEE_ENDPOINT")
+        api_token = os.getenv("ORANGEHRM_API_TOKEN")
+        employee_id = os.getenv("TEST_EMPLOYEE_ID")
+        username = os.getenv("ORANGEHRM_USERNAME")
+        password = os.getenv("ORANGEHRM_PASSWORD")
+    
+        required_settings = {
+            "ORANGEHRM_API_BASE_URL": api_base_url,
+            "ORANGEHRM_EMPLOYEE_ENDPOINT": employee_endpoint,
+            "ORANGEHRM_API_TOKEN": api_token,
+            "TEST_EMPLOYEE_ID": employee_id,
+            "ORANGEHRM_USERNAME": username,
+            "ORANGEHRM_PASSWORD": password,
+        }
+    
+        missing = [
+            key for key, value in required_settings.items()
+            if not value
+        ]
+    
+        if missing:
+            pytest.skip(
+                "Configure integration settings: " + ", ".join(missing)
+            )
+    
+        # 1. Get employee details from API
+        api_url = (
+            f"{api_base_url.rstrip('/')}/"
+            f"{employee_endpoint.strip('/')}/"
+            f"{employee_id}"
+        )
+    
+        response = requests.get(
+            api_url,
+            headers={
+                "Authorization": f"Bearer {api_token}",
+                "Accept": "application/json",
+            },
+            timeout=15,
+        )
+    
+&gt;       assert response.status_code == 200, (
+            f"API request failed: {response.status_code} - "
+            f"{response.text}"
+        )
+E       AssertionError: API request failed: 422 - {"error":{"status":"422","message":"Invalid Parameter","data":{"invalidParamKeys":["empNumber"]}}}
+E       assert 422 == 200
+E        +  where 422 = &lt;Response [422]&gt;.status_code
+
+tests\integration\test_ui_api_integration.py:61: AssertionError</failure></testcase><testcase classname="tests.smoke.test_application_launch" name="test_orangehrm_application_launches" time="6.140" /><testcase classname="tests.smoke.test_dashboard" name="test_dashboard_loads_after_login" time="12.870" /><testcase classname="tests.smoke.test_login" name="test_valid_login" time="20.185" /><testcase classname="tests.smoke.test_login" name="test_invalid_login[InvalidUser-admin123]" time="12.394" /><testcase classname="tests.smoke.test_login" name="test_invalid_login[Admin-InvalidPassword]" time="24.160" /><testcase classname="tests.smoke.test_login" name="test_invalid_login[InvalidUser-InvalidPassword]" time="9.377" /><testcase classname="tests.smoke.test_logout" name="test_user_can_logout" time="21.674" /><testcase classname="tests.smoke.test_navigation" name="test_navigate_to_pim" time="10.266" /><testcase classname="tests.system.test_application_navigation" name="test_user_can_navigate_between_pim_and_leave" time="18.095" /><testcase classname="tests.unit.test_failure_analyzer" name="test_failure_classification[selenium.common.exceptions.TimeoutException-timeout]" time="0.030" /><testcase classname="tests.unit.test_failure_analyzer" name="test_failure_classification[selenium.common.exceptions.NoSuchElementException-locator_issue]" time="0.005" /><testcase classname="tests.unit.test_failure_analyzer" name="test_failure_classification[AssertionError: expected Dashboard-assertion_failure]" time="0.005" /><testcase classname="tests.unit.test_failure_analyzer" name="test_failure_classification[requests.exceptions.ConnectionError-api_error]" time="0.007" /><testcase classname="tests.unit.test_failure_analyzer" name="test_failure_classification[Unexpected browser crash-unknown]" time="0.007" /><testcase classname="tests.unit.test_flaky_test_detector" name="test_detects_mixed_pass_and_fail_results" time="0.002" /><testcase classname="tests.unit.test_flaky_test_detector" name="test_consistently_passing_test_is_not_flagged" time="0.001" /><testcase classname="tests.unit.test_flaky_test_detector" name="test_skipped_only_test_is_not_flagged_as_flaky" time="0.001" /><testcase classname="tests.unit.test_flaky_test_detector" name="test_empty_results_return_empty_report" time="0.003" /><testcase classname="tests.unit.test_locator_healer" name="test_primary_locator_succeeds_without_fallback" time="0.029" /><testcase classname="tests.unit.test_locator_healer" name="test_fallback_locator_succeeds" time="0.006" /><testcase classname="tests.unit.test_locator_healer" name="test_all_locators_fail" time="0.020" /></testsuite></testsuites>
