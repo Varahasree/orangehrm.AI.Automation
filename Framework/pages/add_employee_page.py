@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from Framework.pages.base_page import BasePage
 from selenium.webdriver.common.keys import Keys
 
@@ -27,10 +28,14 @@ class AddEmployeePage(BasePage):
     )
 
     EMPLOYEE_ID = (
-        By.XPATH,
-        "//label[normalize-space()='Employee Id']"
-        "/following::input[1]"
-    )
+         By.XPATH,
+         "//label[normalize-space()='Employee Id']"
+         "/following::input[1]"
+     )
+    FORM_LOADER = (
+           By.CLASS_NAME,
+            "oxd-form-loader"
+         )
 
     SAVE_BUTTON = (
         By.XPATH,
@@ -74,35 +79,101 @@ class AddEmployeePage(BasePage):
             last_name
         )
 
-    def enter_employee_id(self, employee_id):
-        employee_id_element = self.find_element(self.EMPLOYEE_ID)
+    # def enter_employee_id(self, employee_id):
+    #     employee_id_element = self.find_element(self.EMPLOYEE_ID)
+    #
+    #     # Clear the default Employee ID
+    #     employee_id_element.click()
+    #     employee_id_element.send_keys(
+    #         Keys.CONTROL, "a"
+    #     )
+    #     employee_id_element.send_keys(Keys.BACKSPACE)
+    #
+    #     # Enter the generated Employee ID
+    #     employee_id_element.send_keys(str(employee_id))
+    #
+    #     print(
+    #         "Employee ID after entering:",
+    #         employee_id_element.get_attribute("value")
+    #     )
 
-        # Clear the default Employee ID
-        employee_id_element.click()
-        employee_id_element.send_keys(
-            Keys.CONTROL, "a"
+    def enter_employee_id(self, employee_id):
+        wait = WebDriverWait(self.driver, 30)
+
+        # Wait for loader to disappear
+        wait.until(
+            EC.invisibility_of_element_located(self.FORM_LOADER)
         )
+
+        # Wait for Employee ID input to become visible
+        employee_id_element = wait.until(
+            EC.visibility_of_element_located(self.EMPLOYEE_ID)
+        )
+
+        # Scroll to Employee ID input
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});",
+            employee_id_element
+        )
+
+        # Wait until input is clickable
+        employee_id_element = wait.until(
+            EC.element_to_be_clickable(self.EMPLOYEE_ID)
+        )
+
+        # Clear default Employee ID
+        employee_id_element.send_keys(Keys.CONTROL, "a")
         employee_id_element.send_keys(Keys.BACKSPACE)
 
-        # Enter the generated Employee ID
+        # Enter generated Employee ID
         employee_id_element.send_keys(str(employee_id))
 
-        print(
-            "Employee ID after entering:",
-            employee_id_element.get_attribute("value")
+        actual_id = employee_id_element.get_attribute("value")
+
+        print("Employee ID after entering:", actual_id)
+
+        assert actual_id == str(employee_id), (
+            f"Employee ID mismatch. Expected: {employee_id}, "
+            f"Actual: {actual_id}"
         )
     def click_save(self):
 
         self.click(self.SAVE_BUTTON)
 
+    # def add_employee(
+    #     self,
+    #     first_name,
+    #     last_name,
+    #     employee_id,
+    #     middle_name=None
+    # ):
+    #
+    #     self.enter_first_name(first_name)
+    #
+    #     if middle_name:
+    #         self.enter_middle_name(middle_name)
+    #
+    #     self.enter_last_name(last_name)
+    #
+    #     self.enter_employee_id(employee_id)
+    #
+    #     actual_id = self.find_element(
+    #         self.EMPLOYEE_ID
+    #     ).get_attribute("value")
+    #
+    #     assert actual_id == str(employee_id), (
+    #         f"Employee ID mismatch. Expected: {employee_id}, "
+    #         f"Actual: {actual_id}"
+    #     )
+    #
+    #     self.click_save()
     def add_employee(
-        self,
-        first_name,
-        last_name,
-        employee_id,
-        middle_name=None
+            self,
+            first_name,
+            last_name,
+            employee_id,
+            middle_name=None
     ):
-
         self.enter_first_name(first_name)
 
         if middle_name:
@@ -111,15 +182,6 @@ class AddEmployeePage(BasePage):
         self.enter_last_name(last_name)
 
         self.enter_employee_id(employee_id)
-
-        actual_id = self.find_element(
-            self.EMPLOYEE_ID
-        ).get_attribute("value")
-
-        assert actual_id == str(employee_id), (
-            f"Employee ID mismatch. Expected: {employee_id}, "
-            f"Actual: {actual_id}"
-        )
 
         self.click_save()
 
